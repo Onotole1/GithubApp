@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "975494690815",
+    "firebase_url": "https://github-app-41770.firebaseio.com",
+    "project_id": "github-app-41770",
+    "storage_bucket": "github-app-41770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975494690815:android:abf97eb8a396b2bab319ca",
+        "android_client_info": {
+          "package_name": "ru.spitchenko.githubapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975494690815-aviroe62racpk3rets4hrubqrual76dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUS0kbn1mwRPr58kpUbSxImrmVfn544no"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975494690815-aviroe62racpk3rets4hrubqrual76dk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

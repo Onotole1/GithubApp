@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/nav_nested_auth"
+	app:startDestination="@id/authFragment">
+
+	<fragment
+		android:id="@+id/authFragment"
+		android:name="ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment">
+
+		<action
+			android:id="@+id/action_authFragment_to_github"
+			app:enterAnim="@android:anim/fade_in"
+			app:exitAnim="@android:anim/fade_out"
+			app:popUpToInclusive="true"
+			app:popUpTo="@+id/authFragment"/>
+
+	</fragment>
+
+</navigation>

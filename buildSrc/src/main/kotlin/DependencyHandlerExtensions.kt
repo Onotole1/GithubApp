@@ -35,8 +35,8 @@ fun DependencyHandler.swipeRefreshLayout() {
     implementation(Dependencies.Main.Androidx.SWIPE_REFRESH_LAYOUT)
 }
 
-fun DependencyHandler.fragment() {
-    implementation(Dependencies.Main.Androidx.FRAGMENT)
+fun DependencyHandler.playServicesAuth() {
+    implementation(Dependencies.Main.PLAY_SERVICES_AUTH)
 }
 
 fun DependencyHandler.dagger() {

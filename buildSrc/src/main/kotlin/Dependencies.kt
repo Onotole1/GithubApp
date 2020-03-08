@@ -2,7 +2,8 @@ object Dependencies {
 
     object Build {
 
-        const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}"
+        const val ANDROID_GRADLE_PLUGIN =
+            "com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}"
         const val KOTLIN_GRADLE_PLUGIN =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
         const val GOOGLE_SERVICES = "com.google.gms:google-services:${Versions.GOOGLE_SERVICES}"
@@ -35,10 +36,10 @@ object Dependencies {
                 "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
             const val SWIPE_REFRESH_LAYOUT =
                 "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFRESH_LAYOUT}"
-            const val FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_VERSION}"
         }
 
-        const val SAVED_STATE = "androidx.savedstate:savedstate:${Versions.SAVED_STATE_VERSION}"
+        const val PLAY_SERVICES_AUTH =
+            "com.google.android.gms:play-services-auth:${Versions.PLAY_SERVICES_AUTH}"
 
         object Dagger {
 

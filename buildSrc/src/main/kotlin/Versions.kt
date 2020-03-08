@@ -16,9 +16,8 @@ object Versions {
 	const val RECYCLER_VIEW = "1.0.0"
 	const val MATERIAL = "1.1.0-alpha09"
 	const val SWIPE_REFRESH_LAYOUT = "1.0.0"
-	const val FRAGMENT_VERSION = "1.2.0-alpha04"
 
-	const val DAGGER = "2.24"
+	const val DAGGER = "2.26"
 
 	const val JUNIT = "4.12"
 	const val MOCKITO_KOTLIN = "2.1.0"
@@ -29,8 +28,6 @@ object Versions {
 	const val LEAKCANARY = "2.0-beta-3"
 
 	const val ROOM = "2.2.1"
-
-	const val NAVIGATION_SAFE_ARGS_PLUGIN = "1.0.0"
 
 	const val RETROFIT_SERIALIZATION_CONVERTER = "0.4.0"
 
@@ -54,5 +51,5 @@ object Versions {
 
 	const val COROUTINES_VERSION = "1.3.0"
 
-	const val SAVED_STATE_VERSION = "1.0.0-beta01"
+	const val PLAY_SERVICES_AUTH = "17.0.0"
 }

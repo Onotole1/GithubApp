@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/nav_controller"
+	app:startDestination="@id/nav_nested_splash">
+
+	<include app:graph="@navigation/nav_nested_splash"/>
+
+	<include app:graph="@navigation/nav_nested_auth"/>
+
+	<action
+		android:id="@+id/action_logout"
+		app:enterAnim="@android:anim/fade_in"
+		app:exitAnim="@android:anim/fade_out"
+		app:destination="@id/nav_nested_auth"
+		app:launchSingleTop="true"
+		app:popUpToInclusive="true"
+		app:popUpTo="@id/nav_controller"/>
+
+</navigation>

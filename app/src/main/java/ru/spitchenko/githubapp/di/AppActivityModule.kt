@@ -9,6 +9,8 @@ import ru.spitchenko.githubapp.component.di.FragmentScope
 import ru.spitchenko.githubapp.feature.auth.di.AuthModule
 import ru.spitchenko.githubapp.feature.auth.di.GoogleAuthModule
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment
+import ru.spitchenko.githubapp.feature.github.di.GithubFragmentModule
+import ru.spitchenko.githubapp.feature.github.presentation.GithubFragment
 import ru.spitchenko.githubapp.feature.splash.presentation.SplashFragment
 import ru.spitchenko.githubapp.feature.splash.di.SplashNavigationModule
 
@@ -32,6 +34,14 @@ interface AppActivityModule {
         ]
     )
     fun authFragmentInjector(): AuthFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector(
+        modules = [
+            GithubFragmentModule::class
+        ]
+    )
+    fun githubFragmentInjector(): GithubFragment
 
     @Binds
     fun bindAppCompatActivity(activity: AppActivity): AppCompatActivity

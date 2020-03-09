@@ -18,6 +18,7 @@
 
         <action
             android:id="@+id/action_splashFragment_to_github"
+            app:destination="@id/nav_nested_github"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
             app:popUpTo="@+id/splashFragment"

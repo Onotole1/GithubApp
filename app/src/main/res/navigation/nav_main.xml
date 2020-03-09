@@ -8,6 +8,8 @@
 
 	<include app:graph="@navigation/nav_nested_auth"/>
 
+	<include app:graph="@navigation/nav_nested_github"/>
+
 	<action
 		android:id="@+id/action_logout"
 		app:enterAnim="@android:anim/fade_in"

@@ -5,4 +5,8 @@
     <string name="no_network_error">Нет интернет соединения</string>
     <string name="search">Поиск</string>
     <string name="favorites">Избранное</string>
+    <string name="retry">Повторить</string>
+    <string name="not_found">Ничего не найдено</string>
+    <string name="empty">Введите что-нибудь в поиск</string>
+    <string name="too_many_requests">Слишком много запросов</string>
 </resources>

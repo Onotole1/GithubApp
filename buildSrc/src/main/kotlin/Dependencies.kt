@@ -96,6 +96,8 @@ object Dependencies {
                 "androidx.lifecycle:lifecycle-extensions:${Versions.LIFECYCLE_EXTENSION}"
             const val COMPILER =
                 "androidx.lifecycle:lifecycle-compiler:${Versions.LIFECYCLE_EXTENSION}"
+            const val LIVE_DATA_KTX =
+                "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE_LIVE_DATA_KTX}"
         }
 
         object Coroutines {

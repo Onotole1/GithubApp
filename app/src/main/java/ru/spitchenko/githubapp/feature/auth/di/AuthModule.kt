@@ -1,6 +1,7 @@
 package ru.spitchenko.githubapp.feature.auth.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ interface AuthModule {
 
         @AuthPreferences
         @Provides
-        fun provideAuthPreferences(context: Context) =
+        fun provideAuthPreferences(context: Context): SharedPreferences =
             context.getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE)
     }
 

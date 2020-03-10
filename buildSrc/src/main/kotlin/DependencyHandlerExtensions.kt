@@ -61,6 +61,7 @@ fun DependencyHandler.navigation() {
 fun DependencyHandler.lifecycle() {
     kapt(Dependencies.Main.Lifecycle.COMPILER)
     implementation(Dependencies.Main.Lifecycle.EXTENSIONS)
+    implementation(Dependencies.Main.Lifecycle.LIVE_DATA_KTX)
 }
 
 fun DependencyHandler.glide() {

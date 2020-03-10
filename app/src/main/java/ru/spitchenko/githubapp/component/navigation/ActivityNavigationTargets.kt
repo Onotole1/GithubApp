@@ -25,6 +25,13 @@ object SplashToGithub : NavigationTarget<Activity> {
 	}
 }
 
+object AuthToGithub : NavigationTarget<Activity> {
+
+	override fun navigate(source: Activity) {
+		source.navigate(R.id.action_authFragment_to_github)
+	}
+}
+
 private fun Activity.navigate(actionId: Int) {
 	findNavController(R.id.nav_host_fragment).navigate(actionId)
 }

@@ -49,6 +49,8 @@ object Versions {
 
 	const val LIFECYCLE_EXTENSION = "2.2.0-rc03"
 
+	const val LIFECYCLE_LIVE_DATA_KTX = "2.2.0"
+
 	const val COROUTINES_VERSION = "1.3.0"
 
 	const val PLAY_SERVICES_AUTH = "17.0.0"

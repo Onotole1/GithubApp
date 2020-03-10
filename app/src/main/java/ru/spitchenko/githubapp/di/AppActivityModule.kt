@@ -7,6 +7,7 @@ import dagger.android.ContributesAndroidInjector
 import ru.spitchenko.githubapp.AppActivity
 import ru.spitchenko.githubapp.component.di.FragmentScope
 import ru.spitchenko.githubapp.feature.auth.di.AuthModule
+import ru.spitchenko.githubapp.feature.auth.di.AuthNavigationModule
 import ru.spitchenko.githubapp.feature.auth.di.GoogleAuthModule
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment
 import ru.spitchenko.githubapp.feature.github.di.GithubFragmentModule
@@ -30,7 +31,8 @@ interface AppActivityModule {
     @ContributesAndroidInjector(
         modules = [
             AuthModule::class,
-            GoogleAuthModule::class
+            GoogleAuthModule::class,
+            AuthNavigationModule::class
         ]
     )
     fun authFragmentInjector(): AuthFragment

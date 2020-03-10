@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -19,6 +20,11 @@ android {
             "String",
             "GOOGLE_AUTH_CLIENT_ID",
             "\"975494690815-dbe8r98dudvgstr3phlbmf090381qqu7.apps.googleusercontent.com\""
+        )
+        buildConfigField(
+            "String",
+            "SERVER_API_URL",
+            "\"https://api.github.com\""
         )
     }
 

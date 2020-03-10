@@ -21,6 +21,8 @@ class GithubFragment : DaggerFragment() {
 
         binding.pager.adapter = githubPagerAdapter
 
+        binding.pager.isUserInputEnabled = false
+
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             tab.text = getString(githubPagerAdapter.getTitle(position))
         }.attach()

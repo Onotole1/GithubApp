@@ -6,9 +6,11 @@ import dagger.android.support.AndroidSupportInjectionModule
 import ru.spitchenko.githubapp.AppActivity
 import ru.spitchenko.githubapp.component.di.ActivityScope
 import ru.spitchenko.githubapp.component.navigation.ActivityNavigationModule
+import ru.spitchenko.githubapp.component.network.di.NetworkModule
 
 @Module(
     includes = [
+        NetworkModule::class,
         AndroidSupportInjectionModule::class
     ]
 )

@@ -26,6 +26,13 @@ android {
             "SERVER_API_URL",
             "\"https://api.github.com\""
         )
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg("room.incremental", "true")
+            }
+        }
     }
 
     signingConfigs {

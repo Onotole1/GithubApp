@@ -7,6 +7,7 @@
     <string name="favorites">Избранное</string>
     <string name="retry">Повторить</string>
     <string name="not_found">Ничего не найдено</string>
-    <string name="empty">Введите что-нибудь в поиск</string>
+    <string name="empty_search">Введите что-нибудь в поиск</string>
     <string name="too_many_requests">Слишком много запросов</string>
+    <string name="empty_favorites">Добавьте что-нибудь в избранное</string>
 </resources>

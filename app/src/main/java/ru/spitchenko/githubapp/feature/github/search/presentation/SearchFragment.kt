@@ -55,7 +55,7 @@ class SearchFragment : DaggerFragment() {
             ErrorUiModel::class bindWith ErrorViewHolderFactory(
                 viewModel
             ),
-            RepositoryUiModel::class bindWith RepositoryViewHolderFactory
+            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(viewModel)
         )
 
         viewModel.errorEvent.observe(viewLifecycleOwner) {
@@ -68,72 +68,70 @@ class SearchFragment : DaggerFragment() {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.VISIBLE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
-                    binding.message.text = getString(R.string.empty)
+                    binding.message.text = getString(R.string.empty_search)
                     binding.searchRefresh.isEnabled = false
                     binding.searchRefresh.isRefreshing = false
+                    binding.searchList.setBindingList(emptyList())
                 }
                 UiState.NotFound -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.VISIBLE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
                     binding.message.text = getString(R.string.not_found)
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = false
+                    binding.searchList.setBindingList(emptyList())
                 }
                 is UiState.Data -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.GONE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.VISIBLE
-                    binding.searchList.setBindingList(state.items)
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = false
+                    binding.searchList.setBindingList(state.items)
                 }
                 is UiState.Error -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.VISIBLE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
                     binding.message.text = state.error.getString(requireContext())
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = false
+                    binding.searchList.setBindingList(emptyList())
                 }
                 UiState.EmptyProgress -> {
                     binding.progress.visibility = View.VISIBLE
                     binding.message.visibility = View.GONE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = false
+                    binding.searchList.setBindingList(emptyList())
                 }
                 is UiState.Refreshing.Data -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.GONE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.VISIBLE
-                    binding.searchList.setBindingList(state.items)
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = true
+                    binding.searchList.setBindingList(state.items)
                 }
                 UiState.Refreshing.Empty -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.VISIBLE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = true
-                    binding.message.text = getString(R.string.empty)
+                    binding.message.text = getString(R.string.empty_search)
+                    binding.searchList.setBindingList(emptyList())
                 }
                 is UiState.Refreshing.Error -> {
                     binding.progress.visibility = View.GONE
                     binding.message.visibility = View.VISIBLE
                     binding.retryButton.visibility = View.GONE
-                    binding.searchList.visibility = View.GONE
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = true
                     binding.message.text = state.error.getString(requireContext())
+                    binding.searchList.setBindingList(emptyList())
                 }
             }
         }

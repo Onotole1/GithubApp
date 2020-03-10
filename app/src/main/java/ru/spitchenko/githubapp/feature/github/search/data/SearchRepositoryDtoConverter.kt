@@ -6,6 +6,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import ru.spitchenko.githubapp.feature.github.domain.model.Author
 import ru.spitchenko.githubapp.feature.github.domain.model.Repository
+import ru.spitchenko.githubapp.feature.github.domain.model.SimpleRepository
 import ru.spitchenko.githubapp.feature.github.search.data.model.SearchRepositoryDto
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,7 +26,7 @@ class SearchRepositoryDtoConverter @Inject constructor() {
                     avatar = repositoryDto.owner?.avatarUrl
                 )
 
-                Repository(
+                SimpleRepository(
                     id = repositoryDto.id,
                     name = repositoryDto.name.orEmpty(),
                     author = author,

@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/offset_small"
+    android:layout_marginTop="@dimen/offset_small"
+    android:layout_marginEnd="@dimen/offset_small"
+    android:background="@drawable/repository_background_ripple"
+    android:clickable="true"
+    android:elevation="@dimen/card_elevation"
+    android:focusable="true"
     android:padding="@dimen/offset_medium">
 
     <TextView

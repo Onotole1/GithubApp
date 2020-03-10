@@ -8,8 +8,10 @@ import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import retrofit2.create
 import ru.spitchenko.githubapp.component.di.ViewModelKey
+import ru.spitchenko.githubapp.feature.github.search.data.FavoritesRepositoryImpl
 import ru.spitchenko.githubapp.feature.github.search.data.SearchApi
 import ru.spitchenko.githubapp.feature.github.search.data.SearchRepositoryImpl
+import ru.spitchenko.githubapp.feature.github.search.domain.FavoritesRepository
 import ru.spitchenko.githubapp.feature.github.search.domain.SearchRepository
 import ru.spitchenko.githubapp.feature.github.search.presentation.SearchViewModel
 
@@ -24,6 +26,9 @@ interface SearchModule {
 
     @Binds
     fun bindSearchRepository(impl: SearchRepositoryImpl): SearchRepository
+
+    @Binds
+    fun bindFavoritesRepository(impl: FavoritesRepositoryImpl): FavoritesRepository
 
     @ViewModelKey(SearchViewModel::class)
     @IntoMap

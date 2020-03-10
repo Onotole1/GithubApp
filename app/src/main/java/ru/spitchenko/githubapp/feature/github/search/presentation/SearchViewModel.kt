@@ -11,6 +11,8 @@ import ru.spitchenko.githubapp.component.lifecycle.MutableSingleLiveEvent
 import ru.spitchenko.githubapp.component.lifecycle.SingleLiveEvent
 import ru.spitchenko.githubapp.component.network.NetworkError
 import ru.spitchenko.githubapp.component.network.NetworkErrorHandler
+import ru.spitchenko.githubapp.feature.github.search.domain.AddToFavorites
+import ru.spitchenko.githubapp.feature.github.search.domain.RemoveFromFavorites
 import ru.spitchenko.githubapp.feature.github.search.domain.Search
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ErrorUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ProgressUiModel
@@ -19,7 +21,9 @@ import ru.spitchenko.githubapp.feature.github.search.presentation.model.UiState
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val search: Search
+    private val search: Search,
+    private val addToFavorites: AddToFavorites,
+    private val removeFromFavorites: RemoveFromFavorites
 ) : ViewModel() {
 
     companion object {
@@ -29,8 +33,7 @@ class SearchViewModel @Inject constructor(
     private val _errorEvent = MutableSingleLiveEvent<NetworkError>()
     val errorEvent: SingleLiveEvent<NetworkError>
         get() = _errorEvent
-    private val _uiModel = MutableLiveData<UiState>(
-        UiState.Empty)
+    private val _uiModel = MutableLiveData<UiState>(UiState.Empty)
     val uiModel: LiveData<UiState>
         get() = _uiModel
 
@@ -38,10 +41,41 @@ class SearchViewModel @Inject constructor(
 
     private var loadPageJob: Job? = null
     private var refreshJob: Job? = null
+    private var favoritesJob: Job? = null
 
     private var currentState: PagingState<RepositoryUiModel> = Empty
 
     private var query: String = ""
+
+    fun addToFavorites(repositoryUiModel: RepositoryUiModel) {
+        favoritesJob?.cancel()
+        favoritesJob = viewModelScope.launch {
+            addToFavorites(repositoryUiModel.repository)
+
+            setFavorite(true, repositoryUiModel)
+        }
+    }
+
+    fun removeFromFavorites(repositoryUiModel: RepositoryUiModel) {
+        favoritesJob?.cancel()
+        favoritesJob = viewModelScope.launch {
+            removeFromFavorites(repositoryUiModel.repository.id)
+
+            setFavorite(false, repositoryUiModel)
+        }
+    }
+
+    private fun setFavorite(favorite: Boolean, repositoryUiModel: RepositoryUiModel) {
+        val repositoryIndex = repositories.indexOfFirst { it.itemId == repositoryUiModel.itemId }
+        repositories = repositories.toMutableList().apply {
+            set(
+                repositoryIndex,
+                repositoryUiModel.copy(repository = repositoryUiModel.repository.copy(favorite = favorite))
+            )
+        }
+
+        currentState.setFavorite(repositories)
+    }
 
     fun search(query: String) {
         refreshJob?.cancel()
@@ -51,13 +85,13 @@ class SearchViewModel @Inject constructor(
 
         this.query = query
 
+        repositories = emptyList()
+
         if (query.isBlank()) {
             currentState = Empty
             _uiModel.value = UiState.Empty
             return
         }
-
-        repositories = emptyList()
 
         currentState = EmptyProgress()
 
@@ -81,6 +115,7 @@ class SearchViewModel @Inject constructor(
         fun showNextPage() = Unit
         fun newData(data: List<T>) = Unit
         fun fail(throwable: Throwable) = Unit
+        fun setFavorite(data: List<T>) = Unit
     }
 
     private object Empty : PagingState<RepositoryUiModel>
@@ -151,9 +186,13 @@ class SearchViewModel @Inject constructor(
 
             startLoading()
         }
+
+        override fun setFavorite(data: List<RepositoryUiModel>) {
+            _uiModel.value = UiState.Data(data)
+        }
     }
 
-    private inner class PageError : PagingState<RepositoryUiModel> {
+    private inner class PageError(private val error: NetworkError) : PagingState<RepositoryUiModel> {
 
         override fun refresh() {
             currentState = Refresh()
@@ -169,6 +208,10 @@ class SearchViewModel @Inject constructor(
             _uiModel.value = UiState.Data(repositories + ProgressUiModel)
 
             startLoading()
+        }
+
+        override fun setFavorite(data: List<RepositoryUiModel>) {
+            _uiModel.value = UiState.Refreshing.Data(data + ErrorUiModel(error))
         }
     }
 
@@ -198,6 +241,10 @@ class SearchViewModel @Inject constructor(
 
             _errorEvent.sendEvent(NetworkErrorHandler.handle(throwable))
         }
+
+        override fun setFavorite(data: List<RepositoryUiModel>) {
+            _uiModel.value = UiState.Refreshing.Data(data)
+        }
     }
 
     private inner class PageProgress : PagingState<RepositoryUiModel> {
@@ -223,13 +270,19 @@ class SearchViewModel @Inject constructor(
         }
 
         override fun fail(throwable: Throwable) {
-            currentState = PageError()
+            val error = NetworkErrorHandler.handle(throwable)
+
+            currentState = PageError(error)
 
             _uiModel.value = UiState.Data(
                 repositories + ErrorUiModel(
-                    NetworkErrorHandler.handle(throwable)
+                    error
                 )
             )
+        }
+
+        override fun setFavorite(data: List<RepositoryUiModel>) {
+            _uiModel.value = UiState.Data(data + ProgressUiModel)
         }
     }
 
@@ -242,6 +295,10 @@ class SearchViewModel @Inject constructor(
 
             refreshLoading()
         }
+
+        override fun setFavorite(data: List<RepositoryUiModel>) {
+            _uiModel.value = UiState.Data(data)
+        }
     }
 
     private fun startLoading() {
@@ -250,12 +307,7 @@ class SearchViewModel @Inject constructor(
             try {
                 val page = repositories.size / PAGE_SIZE + 1
 
-                val nextPage = search.invoke(query, PAGE_SIZE, page).map {
-                    RepositoryUiModel(
-                        it,
-                        false
-                    )
-                }
+                val nextPage = search.invoke(query, PAGE_SIZE, page).map(::RepositoryUiModel)
 
                 currentState.newData(nextPage)
             } catch (exception: CancellationException) {
@@ -271,12 +323,7 @@ class SearchViewModel @Inject constructor(
         loadPageJob?.cancel()
         refreshJob = viewModelScope.launch {
             try {
-                val newPage = search.invoke(query, PAGE_SIZE, 1).map {
-                    RepositoryUiModel(
-                        it,
-                        false
-                    )
-                }
+                val newPage = search.invoke(query, PAGE_SIZE, 1).map(::RepositoryUiModel)
 
                 repositories = emptyList()
                 currentState.newData(newPage)

@@ -7,6 +7,7 @@ import ru.spitchenko.githubapp.component.binderadapter.BindingViewHolder
 import ru.spitchenko.githubapp.component.binderadapter.ViewHolderFactory
 import ru.spitchenko.githubapp.databinding.ItemRepositorySearchBinding
 import ru.spitchenko.githubapp.feature.github.search.presentation.SearchViewModel
+import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.RepositoryChange
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.RepositoryUiModel
 
 class RepositoryViewHolderFactory(
@@ -34,6 +35,18 @@ class RepositoryViewHolderFactory(
 
     override fun bind(binding: ItemRepositorySearchBinding, model: RepositoryUiModel, payloads: List<Any>) {
         binding.repositoryName.text = model.repository.name
+        
+        if (payloads.isNotEmpty()) {
+            val payload = payloads.lastOrNull() as? RepositoryChange
+            if (payload != null) {
+                binding.favoriteButton.setImageResource(
+                    if (payload.favorite) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp
+                )
+
+                return
+            }
+        }
+
         binding.favoriteButton.setImageResource(
             if (model.repository.favorite) R.drawable.ic_star_black_24dp else R.drawable.ic_star_border_black_24dp
         )

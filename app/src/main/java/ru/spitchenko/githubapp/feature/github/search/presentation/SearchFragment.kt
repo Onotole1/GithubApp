@@ -16,6 +16,7 @@ import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.component.ui.*
 import ru.spitchenko.githubapp.databinding.FragmentSearchBinding
 import ru.spitchenko.githubapp.databinding.ItemProgressBinding
+import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.SearchFragmentDiffUtil
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ErrorUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ProgressUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.RepositoryUiModel
@@ -88,7 +89,10 @@ class SearchFragment : DaggerFragment() {
                     binding.retryButton.visibility = View.GONE
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = false
-                    binding.searchList.setBindingList(state.items)
+                    binding.searchList.setBindingList(
+                        bindingList = state.items,
+                        diffUtil = ::SearchFragmentDiffUtil
+                    )
                 }
                 is UiState.Error -> {
                     binding.progress.visibility = View.GONE
@@ -113,7 +117,10 @@ class SearchFragment : DaggerFragment() {
                     binding.retryButton.visibility = View.GONE
                     binding.searchRefresh.isEnabled = true
                     binding.searchRefresh.isRefreshing = true
-                    binding.searchList.setBindingList(state.items)
+                    binding.searchList.setBindingList(
+                        bindingList = state.items,
+                        diffUtil = ::SearchFragmentDiffUtil
+                    )
                 }
                 UiState.Refreshing.Empty -> {
                     binding.progress.visibility = View.GONE

@@ -17,7 +17,7 @@ class GithubFragment : DaggerFragment() {
     ): View? {
         val binding = FragmentGithubBinding.inflate(inflater, container, false)
 
-        val githubPagerAdapter = GithubPagerAdapter(this)
+        val githubPagerAdapter = GithubPagerAdapter(childFragmentManager, viewLifecycleOwner.lifecycle)
 
         binding.pager.adapter = githubPagerAdapter
 

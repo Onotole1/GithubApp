@@ -6,14 +6,13 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import ru.spitchenko.githubapp.AppActivity
 import ru.spitchenko.githubapp.component.di.FragmentScope
-import ru.spitchenko.githubapp.feature.auth.di.AuthModule
 import ru.spitchenko.githubapp.feature.auth.di.AuthNavigationModule
 import ru.spitchenko.githubapp.feature.auth.di.GoogleAuthModule
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment
 import ru.spitchenko.githubapp.feature.github.di.GithubFragmentModule
 import ru.spitchenko.githubapp.feature.github.presentation.GithubFragment
-import ru.spitchenko.githubapp.feature.splash.presentation.SplashFragment
 import ru.spitchenko.githubapp.feature.splash.di.SplashNavigationModule
+import ru.spitchenko.githubapp.feature.splash.presentation.SplashFragment
 
 @Module
 interface AppActivityModule {
@@ -21,7 +20,6 @@ interface AppActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(
         modules = [
-            AuthModule::class,
             SplashNavigationModule::class
         ]
     )
@@ -30,7 +28,6 @@ interface AppActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(
         modules = [
-            AuthModule::class,
             GoogleAuthModule::class,
             AuthNavigationModule::class
         ]
@@ -40,6 +37,7 @@ interface AppActivityModule {
     @FragmentScope
     @ContributesAndroidInjector(
         modules = [
+            GoogleAuthModule::class,
             GithubFragmentModule::class
         ]
     )

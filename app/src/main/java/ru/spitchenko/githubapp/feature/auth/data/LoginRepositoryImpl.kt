@@ -17,4 +17,8 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override fun isUserLoggedIn(): Boolean = !login.isNullOrBlank()
+
+    override fun logout() {
+        login = null
+    }
 }

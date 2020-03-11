@@ -110,6 +110,7 @@ fun DependencyHandler.androidTesting() {
 fun DependencyHandler.coroutines() {
     implementation(Dependencies.Main.Coroutines.COROUTINES)
     implementation(Dependencies.Main.Coroutines.COROUTINES_ANDROID)
+    implementation(Dependencies.Main.Coroutines.PLAY_SERVICES)
 }
 
 fun DependencyHandler.androidGradlePlugin() {

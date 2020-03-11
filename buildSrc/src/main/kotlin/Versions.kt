@@ -54,4 +54,6 @@ object Versions {
 	const val COROUTINES_VERSION = "1.3.0"
 
 	const val PLAY_SERVICES_AUTH = "17.0.0"
+
+	const val COROUTINES_PLAY_SERVICES = "1.1.1"
 }

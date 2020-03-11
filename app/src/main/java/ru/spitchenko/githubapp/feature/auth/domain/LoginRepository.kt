@@ -4,4 +4,5 @@ interface LoginRepository {
 
     fun login(email: String)
     fun isUserLoggedIn(): Boolean
+    fun logout()
 }

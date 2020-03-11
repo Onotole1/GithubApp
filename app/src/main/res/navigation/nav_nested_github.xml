@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:id="@+id/nav_nested_github"
-	app:startDestination="@id/githubFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_nested_github"
+    app:startDestination="@id/githubFragment">
 
-	<fragment
-		android:id="@+id/githubFragment"
-		android:name="ru.spitchenko.githubapp.feature.github.presentation.GithubFragment">
+    <fragment
+        android:id="@+id/githubFragment"
+        android:name="ru.spitchenko.githubapp.feature.github.presentation.GithubFragment">
 
-		<action
-			android:id="@+id/action_githubFragment_to_details"
-			app:enterAnim="@android:anim/fade_in"
-			app:exitAnim="@android:anim/fade_out"/>
+        <action
+            android:id="@+id/action_githubFragment_to_details"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
 
-	</fragment>
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="ru.spitchenko.githubapp.feature.github.details.presentation.RepositoryDetailsFragment"/>
 
 </navigation>

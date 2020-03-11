@@ -12,12 +12,16 @@ import ru.spitchenko.githubapp.component.binderadapter.setBindingList
 import ru.spitchenko.githubapp.component.lifecycle.ViewModelProviders
 import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.databinding.FragmentFavoritesBinding
+import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
 import javax.inject.Inject
 
 class FavoritesFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelProviders: ViewModelProviders
+
+    @Inject
+    lateinit var githubToDetailsCommand: GithubToDetailsCommand
 
     private val viewModel: FavoritesViewModel by viewModels { viewModelProviders }
 
@@ -39,7 +43,7 @@ class FavoritesFragment : DaggerFragment() {
         }
 
         binding.favoritesList.adapter = binderAdapterOf(
-            RepositoryUiModel::class bindWith RepositoryViewHolderFactory()
+            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(githubToDetailsCommand)
         )
 
         return binding.root

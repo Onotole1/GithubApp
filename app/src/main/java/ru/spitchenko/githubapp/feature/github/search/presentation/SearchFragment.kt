@@ -16,6 +16,7 @@ import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.component.ui.*
 import ru.spitchenko.githubapp.databinding.FragmentSearchBinding
 import ru.spitchenko.githubapp.databinding.ItemProgressBinding
+import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
 import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.SearchFragmentDiffUtil
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ErrorUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ProgressUiModel
@@ -29,6 +30,9 @@ class SearchFragment : DaggerFragment() {
 
     @Inject
     lateinit var providers: ViewModelProviders
+
+    @Inject
+    lateinit var githubToDetailsCommand: GithubToDetailsCommand
 
     private val viewModel: SearchViewModel by viewModels { providers }
 
@@ -56,7 +60,10 @@ class SearchFragment : DaggerFragment() {
             ErrorUiModel::class bindWith ErrorViewHolderFactory(
                 viewModel
             ),
-            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(viewModel)
+            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(
+                viewModel,
+                githubToDetailsCommand
+            )
         )
 
         viewModel.errorEvent.observe(viewLifecycleOwner) {

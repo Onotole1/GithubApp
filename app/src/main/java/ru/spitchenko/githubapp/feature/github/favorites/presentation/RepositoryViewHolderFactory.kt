@@ -5,15 +5,22 @@ import ru.spitchenko.githubapp.component.binderadapter.BindingViewHolder
 import ru.spitchenko.githubapp.component.binderadapter.ViewHolderFactory
 import ru.spitchenko.githubapp.component.ui.layoutInflater
 import ru.spitchenko.githubapp.databinding.ItemRepositoryBinding
+import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
 
-class RepositoryViewHolderFactory : ViewHolderFactory<ItemRepositoryBinding, RepositoryUiModel> {
+class RepositoryViewHolderFactory(
+    private val githubToDetailsCommand: GithubToDetailsCommand
+) : ViewHolderFactory<ItemRepositoryBinding, RepositoryUiModel> {
 
     override fun create(parent: ViewGroup): BindingViewHolder<RepositoryUiModel, ItemRepositoryBinding> =
-        BindingViewHolder(ItemRepositoryBinding.inflate(
+        BindingViewHolder<RepositoryUiModel, ItemRepositoryBinding>(ItemRepositoryBinding.inflate(
             parent.context.layoutInflater,
             parent,
             false
-        ))
+        )).apply {
+            binding.root.setOnClickListener {
+                githubToDetailsCommand.navigate(requireNotNull(item).repository)
+            }
+        }
 
     override fun bind(
         binding: ItemRepositoryBinding,

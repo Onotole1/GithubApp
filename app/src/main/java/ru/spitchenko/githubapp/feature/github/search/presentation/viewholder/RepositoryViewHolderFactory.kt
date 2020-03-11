@@ -6,12 +6,14 @@ import ru.spitchenko.githubapp.R
 import ru.spitchenko.githubapp.component.binderadapter.BindingViewHolder
 import ru.spitchenko.githubapp.component.binderadapter.ViewHolderFactory
 import ru.spitchenko.githubapp.databinding.ItemRepositorySearchBinding
+import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
 import ru.spitchenko.githubapp.feature.github.search.presentation.SearchViewModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.RepositoryChange
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.RepositoryUiModel
 
 class RepositoryViewHolderFactory(
-    private val viewModel: SearchViewModel
+    private val viewModel: SearchViewModel,
+    private val githubToDetailsCommand: GithubToDetailsCommand
 ) : ViewHolderFactory<ItemRepositorySearchBinding, RepositoryUiModel> {
 
     override fun create(parent: ViewGroup): BindingViewHolder<RepositoryUiModel, ItemRepositorySearchBinding> =
@@ -22,6 +24,10 @@ class RepositoryViewHolderFactory(
                 false
             )
         ).apply {
+            binding.root.setOnClickListener {
+                githubToDetailsCommand.navigate(requireNotNull(item).repository)
+            }
+
             binding.favoriteButton.setOnClickListener {
                 val repositoryUiModel = requireNotNull(item)
 

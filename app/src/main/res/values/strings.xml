@@ -10,4 +10,8 @@
     <string name="empty_search">Введите что-нибудь в поиск</string>
     <string name="too_many_requests">Слишком много запросов</string>
     <string name="empty_favorites">Добавьте что-нибудь в избранное</string>
+    <string name="repository_description">Описание:</string>
+    <string name="repository_forks">Количество fork:</string>
+    <string name="repository_stars">Количество star:</string>
+    <string name="repository_creation_date">Дата создания:</string>
 </resources>

@@ -12,14 +12,16 @@ interface GithubFragmentModule {
 
     @ContributesAndroidInjector(
         modules = [
-            FavoritesModule::class
+            FavoritesModule::class,
+            GithubNavigationModule::class
         ]
     )
     fun favoritesFragmentInjector(): FavoritesFragment
 
     @ContributesAndroidInjector(
         modules = [
-            SearchModule::class
+            SearchModule::class,
+            GithubNavigationModule::class
         ]
     )
     fun searchInjector(): SearchFragment

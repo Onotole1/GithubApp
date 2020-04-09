@@ -52,7 +52,7 @@ android {
         }
     }
 
-    viewBinding {
+    dataBinding {
         isEnabled = true
     }
 

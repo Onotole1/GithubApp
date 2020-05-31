@@ -9,6 +9,7 @@ import ru.spitchenko.githubapp.feature.auth.domain.Login
 import ru.spitchenko.githubapp.feature.auth.domain.LoginRepository
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthViewModel
+import ru.spitchenko.githubapp.feature.auth.presentation.GoogleSignInContract
 
 private const val AUTH_PREFERENCES = "auth_preferences"
 
@@ -24,5 +25,8 @@ val authModule = module {
 
     factory { AuthViewModel(get()) }
 
-    fragment { AuthFragment(googleSignInClient = get(), viewModel = get()) }
+    fragment {
+        val googleSignInContract = GoogleSignInContract(get())
+        AuthFragment(signInContract = googleSignInContract, viewModel = get())
+    }
 }

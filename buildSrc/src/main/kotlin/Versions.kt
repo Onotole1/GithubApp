@@ -16,7 +16,7 @@ object Versions {
 	const val RECYCLER_VIEW = "1.0.0"
 	const val MATERIAL = "1.1.0-alpha09"
 	const val SWIPE_REFRESH_LAYOUT = "1.0.0"
-	const val FRAGMENT_VERSION = "1.2.4"
+	const val FRAGMENT_VERSION = "1.3.0-alpha05"
 
 	const val KOIN = "2.1.5"
 
@@ -46,7 +46,7 @@ object Versions {
 
 	const val GOOGLE_SERVICES = "4.3.3"
 
-	const val NAVIGATION = "2.1.0-alpha06"
+	const val NAVIGATION = "2.2.2"
 
 	const val LIFECYCLE_EXTENSION = "2.2.0-rc03"
 

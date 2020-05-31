@@ -2,10 +2,12 @@ package ru.spitchenko.githubapp.feature.auth.di
 
 import android.content.Context
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.fragment.dsl.fragment
 import org.koin.dsl.module
 import ru.spitchenko.githubapp.feature.auth.data.LoginRepositoryImpl
 import ru.spitchenko.githubapp.feature.auth.domain.Login
 import ru.spitchenko.githubapp.feature.auth.domain.LoginRepository
+import ru.spitchenko.githubapp.feature.auth.presentation.AuthFragment
 import ru.spitchenko.githubapp.feature.auth.presentation.AuthViewModel
 
 private const val AUTH_PREFERENCES = "auth_preferences"
@@ -21,4 +23,6 @@ val authModule = module {
     factory { Login(get()) }
 
     factory { AuthViewModel(get()) }
+
+    fragment { AuthFragment(googleSignInClient = get(), viewModel = get()) }
 }

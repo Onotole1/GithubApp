@@ -71,6 +71,7 @@ dependencies {
     kotlinSerializationRuntime()
     coroutines()
     appcompat()
+    fragment()
     recyclerView()
     material()
     swipeRefreshLayout()

@@ -10,20 +10,18 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import org.koin.android.ext.android.inject
 import ru.spitchenko.githubapp.R
 import ru.spitchenko.githubapp.component.ui.toast
 import ru.spitchenko.githubapp.databinding.FragmentAuthBinding
 
-class AuthFragment : Fragment() {
+class AuthFragment(
+    private val googleSignInClient: GoogleSignInClient,
+    private val viewModel: AuthViewModel
+) : Fragment() {
 
     companion object {
         private const val REQUEST_CODE_SIGN_IN = 7832
     }
-
-    private val googleSignInClient: GoogleSignInClient by inject()
-
-    private val viewModel: AuthViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,

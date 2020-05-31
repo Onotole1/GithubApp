@@ -29,6 +29,7 @@ object Dependencies {
         object Androidx {
 
             const val APPCOMPAT = "androidx.core:core-ktx:${Versions.APPCOMPAT}"
+            const val FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_VERSION}"
             const val CORE = "androidx.core:core-ktx:${Versions.ANDROIDX_CORE}"
             const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
             const val RECYCLER_VIEW = "androidx.recyclerview:recyclerview:${Versions.RECYCLER_VIEW}"
@@ -113,6 +114,7 @@ object Dependencies {
         const val JUNIT = "junit:junit:${Versions.JUNIT}"
         const val ANDROIDX_CORE_TESTING = "androidx.arch.core:core-testing:${Versions.CORE_TESTING}"
         const val KOIN_TESTING = "org.koin:koin-test:${Versions.KOIN}"
+        const val KOIN_FRAGMENT = "org.koin:koin-androidx-fragment:${Versions.KOIN}"
         const val SUPPORT_TEST_RUNNER = "androidx.test:runner:${Versions.SUPPORT_TEST_RUNNER}"
         const val SUPPORT_TEST_RULES = "androidx.test:rules:${Versions.SUPPORT_TEST_RULES}"
         const val MOCKITO_KOTLIN =

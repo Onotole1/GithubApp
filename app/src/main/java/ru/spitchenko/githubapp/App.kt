@@ -12,6 +12,7 @@ import ru.spitchenko.githubapp.feature.github.favorites.di.favoritesModule
 import ru.spitchenko.githubapp.feature.github.search.di.searchModule
 import ru.spitchenko.githubapp.feature.splash.di.splashModule
 import timber.log.Timber
+import org.koin.androidx.fragment.koin.fragmentFactory
 
 class App : Application() {
 
@@ -22,6 +23,8 @@ class App : Application() {
 
         startKoin {
             androidContext(this@App)
+
+            fragmentFactory()
 
             modules(
                 authModule,

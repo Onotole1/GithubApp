@@ -16,6 +16,7 @@ object Versions {
 	const val RECYCLER_VIEW = "1.0.0"
 	const val MATERIAL = "1.1.0-alpha09"
 	const val SWIPE_REFRESH_LAYOUT = "1.0.0"
+	const val FRAGMENT_VERSION = "1.2.4"
 
 	const val KOIN = "2.1.5"
 

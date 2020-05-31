@@ -6,9 +6,7 @@ import androidx.navigation.fragment.findNavController
 import org.koin.android.ext.android.inject
 import ru.spitchenko.githubapp.R
 
-class SplashFragment : Fragment() {
-
-    private val viewModel: SplashViewModel by inject()
+class SplashFragment(private val viewModel: SplashViewModel) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

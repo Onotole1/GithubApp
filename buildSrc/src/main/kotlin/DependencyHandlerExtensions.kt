@@ -19,6 +19,10 @@ fun DependencyHandler.appcompat() {
     implementation(Dependencies.Main.Androidx.APPCOMPAT)
 }
 
+fun DependencyHandler.fragment() {
+    implementation(Dependencies.Main.Androidx.FRAGMENT)
+}
+
 fun DependencyHandler.material() {
     implementation(Dependencies.Main.Androidx.MATERIAL)
 }
@@ -42,6 +46,7 @@ fun DependencyHandler.playServicesAuth() {
 fun DependencyHandler.koin() {
     implementation(Dependencies.Main.KOIN.ANDROID)
     implementation(Dependencies.Main.KOIN.VIEW_MODEL)
+    implementation(Dependencies.Test.KOIN_FRAGMENT)
 }
 
 fun DependencyHandler.room() {

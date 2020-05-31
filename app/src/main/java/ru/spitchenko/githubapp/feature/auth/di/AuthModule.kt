@@ -1,26 +1,24 @@
 package ru.spitchenko.githubapp.feature.auth.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import ru.spitchenko.githubapp.feature.auth.data.LoginRepositoryImpl
+import ru.spitchenko.githubapp.feature.auth.domain.Login
 import ru.spitchenko.githubapp.feature.auth.domain.LoginRepository
+import ru.spitchenko.githubapp.feature.auth.presentation.AuthViewModel
 
-@Module
-interface AuthModule {
+private const val AUTH_PREFERENCES = "auth_preferences"
 
-    companion object {
+val authModule = module {
+    factory<LoginRepository> {
+        val authPreferences =
+            androidContext().getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE)
 
-        private const val AUTH_PREFERENCES = "auth_preferences"
-
-        @AuthPreferences
-        @Provides
-        fun provideAuthPreferences(context: Context): SharedPreferences =
-            context.getSharedPreferences(AUTH_PREFERENCES, Context.MODE_PRIVATE)
+        LoginRepositoryImpl(authPreferences)
     }
 
-    @Binds
-    fun bindLoginRepository(impl: LoginRepositoryImpl): LoginRepository
+    factory { Login(get()) }
+
+    factory { AuthViewModel(get()) }
 }

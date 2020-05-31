@@ -4,26 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import dagger.android.support.DaggerFragment
+import androidx.navigation.fragment.findNavController
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.spitchenko.githubapp.component.binderadapter.bindWith
 import ru.spitchenko.githubapp.component.binderadapter.binderAdapterOf
 import ru.spitchenko.githubapp.component.binderadapter.setBindingList
-import ru.spitchenko.githubapp.component.lifecycle.ViewModelProviders
-import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.databinding.FragmentFavoritesBinding
-import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
-import javax.inject.Inject
 
-class FavoritesFragment : DaggerFragment() {
+class FavoritesFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelProviders: ViewModelProviders
-
-    @Inject
-    lateinit var githubToDetailsCommand: GithubToDetailsCommand
-
-    private val viewModel: FavoritesViewModel by viewModels { viewModelProviders }
+    private val viewModel: FavoritesViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,15 +28,11 @@ class FavoritesFragment : DaggerFragment() {
         viewModel.favorites.observe(viewLifecycleOwner) { repositories ->
             binding.favoritesList.setBindingList(repositories)
 
-            if (repositories.isEmpty()) {
-                binding.emptyText.visibility = View.VISIBLE
-            } else {
-                binding.emptyText.visibility = View.GONE
-            }
+            binding.emptyText.isVisible = repositories.isEmpty()
         }
 
         binding.favoritesList.adapter = binderAdapterOf(
-            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(githubToDetailsCommand)
+            RepositoryUiModel::class bindWith RepositoryViewHolderFactory(findNavController())
         )
 
         return binding.root

@@ -2,9 +2,8 @@ package ru.spitchenko.githubapp.feature.github.search.data
 
 import ru.spitchenko.githubapp.feature.github.domain.model.Repository
 import ru.spitchenko.githubapp.feature.github.search.domain.SearchRepository
-import javax.inject.Inject
 
-class SearchRepositoryImpl @Inject constructor(
+class SearchRepositoryImpl(
     private val api: SearchApi,
     private val converter: SearchRepositoryDtoConverter
 ) : SearchRepository {

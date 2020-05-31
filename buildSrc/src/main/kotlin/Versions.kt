@@ -17,7 +17,7 @@ object Versions {
 	const val MATERIAL = "1.1.0-alpha09"
 	const val SWIPE_REFRESH_LAYOUT = "1.0.0"
 
-	const val DAGGER = "2.26"
+	const val KOIN = "2.1.5"
 
 	const val JUNIT = "4.12"
 	const val MOCKITO_KOTLIN = "2.1.0"

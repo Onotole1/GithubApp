@@ -1,17 +1,21 @@
 package ru.spitchenko.githubapp.feature.splash.presentation
 
 import android.os.Bundle
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import org.koin.android.ext.android.inject
+import ru.spitchenko.githubapp.R
 
-class SplashFragment: DaggerFragment() {
+class SplashFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModel: SplashViewModel
+    private val viewModel: SplashViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.navigate()
+        when (viewModel.navigate()) {
+            SplashNavigation.ToLogin -> findNavController().navigate(R.id.action_splashFragment_to_auth)
+            SplashNavigation.ToGithub -> findNavController().navigate(R.id.action_splashFragment_to_github)
+        }
     }
 }

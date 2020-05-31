@@ -1,19 +1,22 @@
 package ru.spitchenko.githubapp.feature.github.search.presentation.viewholder
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import ru.spitchenko.githubapp.R
 import ru.spitchenko.githubapp.component.binderadapter.BindingViewHolder
 import ru.spitchenko.githubapp.component.binderadapter.ViewHolderFactory
 import ru.spitchenko.githubapp.databinding.ItemRepositorySearchBinding
-import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
+import ru.spitchenko.githubapp.feature.github.details.presentation.model.RepositoryArgs
+import ru.spitchenko.githubapp.feature.github.details.presentation.model.repositoryArgs
 import ru.spitchenko.githubapp.feature.github.search.presentation.SearchViewModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.RepositoryChange
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.RepositoryUiModel
 
 class RepositoryViewHolderFactory(
     private val viewModel: SearchViewModel,
-    private val githubToDetailsCommand: GithubToDetailsCommand
+    private val navController: NavController
 ) : ViewHolderFactory<ItemRepositorySearchBinding, RepositoryUiModel> {
 
     override fun create(parent: ViewGroup): BindingViewHolder<RepositoryUiModel, ItemRepositorySearchBinding> =
@@ -25,7 +28,9 @@ class RepositoryViewHolderFactory(
             )
         ).apply {
             binding.root.setOnClickListener {
-                githubToDetailsCommand.navigate(requireNotNull(item).repository)
+                navController.navigate(R.id.action_githubFragment_to_details, Bundle().apply {
+                    repositoryArgs = RepositoryArgs(requireNotNull(item).repository)
+                })
             }
 
             binding.favoriteButton.setOnClickListener {

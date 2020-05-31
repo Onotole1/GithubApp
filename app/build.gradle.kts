@@ -79,7 +79,7 @@ dependencies {
     lifecycle()
     glide()
     androidxCore()
-    dagger()
+    koin()
     navigation()
     retrofit()
     okhttp()

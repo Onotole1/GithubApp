@@ -5,26 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
-import dagger.android.support.DaggerFragment
+import org.koin.android.ext.android.inject
 import ru.spitchenko.githubapp.R
 import ru.spitchenko.githubapp.component.ui.toast
 import ru.spitchenko.githubapp.databinding.FragmentAuthBinding
-import javax.inject.Inject
 
-class AuthFragment : DaggerFragment() {
+class AuthFragment : Fragment() {
 
     companion object {
         private const val REQUEST_CODE_SIGN_IN = 7832
     }
 
-    @Inject
-    lateinit var googleSignInClient: GoogleSignInClient
+    private val googleSignInClient: GoogleSignInClient by inject()
 
-    @Inject
-    lateinit var viewModel: AuthViewModel
+    private val viewModel: AuthViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +41,12 @@ class AuthFragment : DaggerFragment() {
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
+
+        // TODO use new activity for result API
         startActivityForResult(signInIntent, REQUEST_CODE_SIGN_IN)
     }
 
+    // TODO use new activity for result API
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -57,6 +59,8 @@ class AuthFragment : DaggerFragment() {
                 }
 
                 viewModel.login(email)
+
+                findNavController().navigate(R.id.action_authFragment_to_github)
             } catch (e: ApiException) {
                 requireContext().toast(R.string.google_api_error)
             }

@@ -1,20 +1,39 @@
 package ru.spitchenko.githubapp
 
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
-import ru.spitchenko.githubapp.di.DaggerApplicationComponent
+import android.app.Application
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import ru.spitchenko.githubapp.component.database.di.databaseModule
+import ru.spitchenko.githubapp.component.network.di.networkModule
+import ru.spitchenko.githubapp.feature.auth.di.authModule
+import ru.spitchenko.githubapp.feature.auth.di.googleAuthModule
+import ru.spitchenko.githubapp.feature.github.di.githubFragmentModule
+import ru.spitchenko.githubapp.feature.github.favorites.di.favoritesModule
+import ru.spitchenko.githubapp.feature.github.search.di.searchModule
+import ru.spitchenko.githubapp.feature.splash.di.splashModule
 import timber.log.Timber
 
-class App : DaggerApplication() {
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-        DaggerApplicationComponent.factory()
-            .create(this)
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         setupLogging()
+
+        startKoin {
+            androidContext(this@App)
+
+            modules(
+                authModule,
+                splashModule,
+                googleAuthModule,
+                searchModule,
+                githubFragmentModule,
+                favoritesModule,
+                networkModule,
+                databaseModule
+            )
+        }
     }
 
     private fun setupLogging() {

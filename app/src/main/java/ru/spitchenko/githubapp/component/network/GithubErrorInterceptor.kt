@@ -2,9 +2,8 @@ package ru.spitchenko.githubapp.component.network
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import javax.inject.Inject
 
-class GithubErrorInterceptor @Inject constructor() : Interceptor {
+object GithubErrorInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response =
         chain.proceed(chain.request())

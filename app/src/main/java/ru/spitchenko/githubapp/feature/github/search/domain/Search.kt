@@ -2,9 +2,8 @@ package ru.spitchenko.githubapp.feature.github.search.domain
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
-class Search @Inject constructor(
+class Search(
     private val getFavorites: GetFavorites,
     private val repository: SearchRepository
 ) {

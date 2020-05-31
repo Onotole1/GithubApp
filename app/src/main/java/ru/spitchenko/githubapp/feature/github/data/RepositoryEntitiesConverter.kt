@@ -5,9 +5,8 @@ import kotlinx.coroutines.withContext
 import ru.spitchenko.githubapp.feature.github.domain.model.Author
 import ru.spitchenko.githubapp.feature.github.domain.model.Repository
 import ru.spitchenko.githubapp.feature.github.domain.model.SimpleRepository
-import javax.inject.Inject
 
-class RepositoryEntitiesConverter @Inject constructor() {
+object RepositoryEntitiesConverter {
 
     suspend fun convert(entities: List<RepositoryEntity>): List<Repository> =
         withContext(Dispatchers.Default) {

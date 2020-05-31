@@ -4,9 +4,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.coroutines.tasks.await
 import ru.spitchenko.githubapp.feature.auth.domain.LoginRepository
 import ru.spitchenko.githubapp.feature.github.domain.LogoutRepository
-import javax.inject.Inject
 
-class LogoutRepositoryImpl @Inject constructor(
+class LogoutRepositoryImpl(
     private val repositoriesDao: RepositoriesDao,
     private val loginRepository: LoginRepository,
     private val googleSignInClient: GoogleSignInClient

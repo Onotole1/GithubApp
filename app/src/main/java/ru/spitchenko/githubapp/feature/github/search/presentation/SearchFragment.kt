@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import dagger.android.support.DaggerFragment
+import androidx.navigation.fragment.findNavController
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.spitchenko.githubapp.R
 import ru.spitchenko.githubapp.component.binderadapter.bindWith
 import ru.spitchenko.githubapp.component.binderadapter.binderAdapterOf
 import ru.spitchenko.githubapp.component.binderadapter.setBindingList
 import ru.spitchenko.githubapp.component.binderadapter.viewHolderFactory
-import ru.spitchenko.githubapp.component.lifecycle.ViewModelProviders
-import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.component.ui.*
 import ru.spitchenko.githubapp.databinding.FragmentSearchBinding
 import ru.spitchenko.githubapp.databinding.ItemProgressBinding
-import ru.spitchenko.githubapp.feature.github.navigation.GithubToDetailsCommand
 import ru.spitchenko.githubapp.feature.github.search.presentation.diffutil.SearchFragmentDiffUtil
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ErrorUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ProgressUiModel
@@ -24,17 +23,10 @@ import ru.spitchenko.githubapp.feature.github.search.presentation.model.Reposito
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.UiState
 import ru.spitchenko.githubapp.feature.github.search.presentation.viewholder.ErrorViewHolderFactory
 import ru.spitchenko.githubapp.feature.github.search.presentation.viewholder.RepositoryViewHolderFactory
-import javax.inject.Inject
 
-class SearchFragment : DaggerFragment() {
+class SearchFragment : Fragment() {
 
-    @Inject
-    lateinit var providers: ViewModelProviders
-
-    @Inject
-    lateinit var githubToDetailsCommand: GithubToDetailsCommand
-
-    private val viewModel: SearchViewModel by viewModels { providers }
+    private val viewModel: SearchViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +54,7 @@ class SearchFragment : DaggerFragment() {
             ),
             RepositoryUiModel::class bindWith RepositoryViewHolderFactory(
                 viewModel,
-                githubToDetailsCommand
+                findNavController()
             )
         )
 

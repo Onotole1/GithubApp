@@ -39,12 +39,9 @@ fun DependencyHandler.playServicesAuth() {
     implementation(Dependencies.Main.PLAY_SERVICES_AUTH)
 }
 
-fun DependencyHandler.dagger() {
-    kapt(Dependencies.Main.Dagger.COMPILER)
-    kapt(Dependencies.Main.Dagger.PROCESSOR)
-    implementation(Dependencies.Main.Dagger.ANDROID)
-    implementation(Dependencies.Main.Dagger.SUPPORT)
-    implementation(Dependencies.Main.Dagger.DAGGER)
+fun DependencyHandler.koin() {
+    implementation(Dependencies.Main.KOIN.ANDROID)
+    implementation(Dependencies.Main.KOIN.VIEW_MODEL)
 }
 
 fun DependencyHandler.room() {
@@ -105,6 +102,7 @@ fun DependencyHandler.androidTesting() {
     androidTestImplementation(Dependencies.Test.SUPPORT_TEST_RUNNER)
     androidTestImplementation(Dependencies.Test.ROOM)
     androidTestImplementation(Dependencies.Test.ANDROIDX_CORE_TESTING)
+    androidTestImplementation(Dependencies.Test.KOIN_TESTING)
 }
 
 fun DependencyHandler.coroutines() {

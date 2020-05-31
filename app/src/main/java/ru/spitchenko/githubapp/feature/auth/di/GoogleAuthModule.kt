@@ -1,23 +1,20 @@
 package ru.spitchenko.githubapp.feature.auth.di
 
-import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import dagger.Module
-import dagger.Provides
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import ru.spitchenko.githubapp.BuildConfig
 
-@Module
-class GoogleAuthModule {
-
-    @Provides
-    fun provideGoogleSignInClient(context: Context): GoogleSignInClient =
+val googleAuthModule = module {
+    factory<GoogleSignInClient> {
         GoogleSignIn.getClient(
-            context,
+            androidContext(),
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(BuildConfig.GOOGLE_AUTH_CLIENT_ID)
                 .requestEmail()
                 .build()
         )
+    }
 }

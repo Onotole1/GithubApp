@@ -41,13 +41,10 @@ object Dependencies {
         const val PLAY_SERVICES_AUTH =
             "com.google.android.gms:play-services-auth:${Versions.PLAY_SERVICES_AUTH}"
 
-        object Dagger {
+        object KOIN {
 
-            const val DAGGER = "com.google.dagger:dagger:${Versions.DAGGER}"
-            const val COMPILER = "com.google.dagger:dagger-compiler:${Versions.DAGGER}"
-            const val ANDROID = "com.google.dagger:dagger-android:${Versions.DAGGER}"
-            const val SUPPORT = "com.google.dagger:dagger-android-support:${Versions.DAGGER}"
-            const val PROCESSOR = "com.google.dagger:dagger-android-processor:${Versions.DAGGER}"
+            const val ANDROID = "org.koin:koin-android:${Versions.KOIN}"
+            const val VIEW_MODEL = "org.koin:koin-android-viewmodel:${Versions.KOIN}"
         }
 
         object Room {
@@ -115,6 +112,7 @@ object Dependencies {
 
         const val JUNIT = "junit:junit:${Versions.JUNIT}"
         const val ANDROIDX_CORE_TESTING = "androidx.arch.core:core-testing:${Versions.CORE_TESTING}"
+        const val KOIN_TESTING = "org.koin:koin-test:${Versions.KOIN}"
         const val SUPPORT_TEST_RUNNER = "androidx.test:runner:${Versions.SUPPORT_TEST_RUNNER}"
         const val SUPPORT_TEST_RULES = "androidx.test:rules:${Versions.SUPPORT_TEST_RULES}"
         const val MOCKITO_KOTLIN =

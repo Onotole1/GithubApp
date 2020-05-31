@@ -10,9 +10,8 @@ import ru.spitchenko.githubapp.feature.github.domain.model.SimpleRepository
 import ru.spitchenko.githubapp.feature.github.search.data.model.SearchRepositoryDto
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
-class SearchRepositoryDtoConverter @Inject constructor() {
+object SearchRepositoryDtoConverter {
 
     private val serverTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.US)
 

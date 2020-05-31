@@ -1,22 +1,23 @@
 package ru.spitchenko.githubapp.feature.github.favorites.di
 
-import androidx.lifecycle.ViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.multibindings.IntoMap
-import ru.spitchenko.githubapp.component.di.ViewModelKey
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+import ru.spitchenko.githubapp.feature.github.data.RepositoryEntitiesConverter
 import ru.spitchenko.githubapp.feature.github.favorites.data.ObserveFavoritesRepositoryImpl
+import ru.spitchenko.githubapp.feature.github.favorites.domain.ObserveFavorites
 import ru.spitchenko.githubapp.feature.github.favorites.domain.ObserveFavoritesRepository
 import ru.spitchenko.githubapp.feature.github.favorites.presentation.FavoritesViewModel
 
-@Module
-interface FavoritesModule {
+val favoritesModule = module {
 
-    @Binds
-    fun bindObserveFavoritesRepository(impl: ObserveFavoritesRepositoryImpl): ObserveFavoritesRepository
+    factory<ObserveFavoritesRepository> {
+        ObserveFavoritesRepositoryImpl(
+            repositoriesDao = get(),
+            converter = RepositoryEntitiesConverter
+        )
+    }
 
-    @ViewModelKey(FavoritesViewModel::class)
-    @IntoMap
-    @Binds
-    fun bindFavoritesViewModel(impl: FavoritesViewModel): ViewModel
+    factory { ObserveFavorites(get()) }
+
+    viewModel { FavoritesViewModel(get()) }
 }

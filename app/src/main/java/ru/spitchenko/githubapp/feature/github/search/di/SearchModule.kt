@@ -1,37 +1,36 @@
 package ru.spitchenko.githubapp.feature.github.search.di
 
-import androidx.lifecycle.ViewModel
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.create
-import ru.spitchenko.githubapp.component.di.ViewModelKey
-import ru.spitchenko.githubapp.feature.github.search.data.FavoritesRepositoryImpl
-import ru.spitchenko.githubapp.feature.github.search.data.SearchApi
-import ru.spitchenko.githubapp.feature.github.search.data.SearchRepositoryImpl
-import ru.spitchenko.githubapp.feature.github.search.domain.FavoritesRepository
-import ru.spitchenko.githubapp.feature.github.search.domain.SearchRepository
+import ru.spitchenko.githubapp.feature.github.data.RepositoryEntitiesConverter
+import ru.spitchenko.githubapp.feature.github.search.data.*
+import ru.spitchenko.githubapp.feature.github.search.domain.*
 import ru.spitchenko.githubapp.feature.github.search.presentation.SearchViewModel
 
-@Module
-interface SearchModule {
+val searchModule = module {
+    factory { get<Retrofit>().create<SearchApi>() }
 
-    companion object {
+    factory<SearchRepository> { SearchRepositoryImpl(api = get(), converter = SearchRepositoryDtoConverter) }
 
-        @Provides
-        fun provideSearchApi(retrofit: Retrofit): SearchApi = retrofit.create()
+    factory<FavoritesRepository> {
+        FavoritesRepositoryImpl(
+            dao = get(),
+            entityConverter = RepositoryEntityConverter,
+            entitiesConverter = RepositoryEntitiesConverter
+        )
     }
 
-    @Binds
-    fun bindSearchRepository(impl: SearchRepositoryImpl): SearchRepository
+    factory { RemoveFromFavorites(get()) }
 
-    @Binds
-    fun bindFavoritesRepository(impl: FavoritesRepositoryImpl): FavoritesRepository
+    factory { AddToFavorites(get()) }
 
-    @ViewModelKey(SearchViewModel::class)
-    @IntoMap
-    @Binds
-    fun bindSearchViewModel(impl: SearchViewModel): ViewModel
+    factory { GetFavorites(get()) }
+
+    factory { Search(getFavorites = get(), repository = get()) }
+
+    viewModel {
+        SearchViewModel(search = get(), addToFavorites = get(), removeFromFavorites = get())
+    }
 }

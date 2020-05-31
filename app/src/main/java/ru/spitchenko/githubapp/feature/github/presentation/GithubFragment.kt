@@ -4,20 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.android.support.DaggerFragment
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.spitchenko.githubapp.R
-import ru.spitchenko.githubapp.component.lifecycle.ViewModelProviders
-import ru.spitchenko.githubapp.component.lifecycle.viewModels
 import ru.spitchenko.githubapp.databinding.FragmentGithubBinding
-import javax.inject.Inject
 
-class GithubFragment : DaggerFragment() {
+class GithubFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelProviders: ViewModelProviders
-
-    private val githubViewModel: GithubViewModel by viewModels { viewModelProviders }
+    private val githubViewModel: GithubViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +41,10 @@ class GithubFragment : DaggerFragment() {
             }
 
             false
+        }
+
+        githubViewModel.logoutEvent.observe(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_logout)
         }
 
         return binding.root

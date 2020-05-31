@@ -6,9 +6,8 @@ import ru.spitchenko.githubapp.feature.github.data.RepositoriesDao
 import ru.spitchenko.githubapp.feature.github.data.RepositoryEntitiesConverter
 import ru.spitchenko.githubapp.feature.github.domain.model.Repository
 import ru.spitchenko.githubapp.feature.github.favorites.domain.ObserveFavoritesRepository
-import javax.inject.Inject
 
-class ObserveFavoritesRepositoryImpl @Inject constructor(
+class ObserveFavoritesRepositoryImpl(
     private val repositoriesDao: RepositoriesDao,
     private val converter: RepositoryEntitiesConverter
 ) : ObserveFavoritesRepository {

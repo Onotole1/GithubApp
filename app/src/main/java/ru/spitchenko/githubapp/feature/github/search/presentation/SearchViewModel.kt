@@ -18,9 +18,8 @@ import ru.spitchenko.githubapp.feature.github.search.presentation.model.ErrorUiM
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.ProgressUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.RepositoryUiModel
 import ru.spitchenko.githubapp.feature.github.search.presentation.model.UiState
-import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+class SearchViewModel(
     private val search: Search,
     private val addToFavorites: AddToFavorites,
     private val removeFromFavorites: RemoveFromFavorites

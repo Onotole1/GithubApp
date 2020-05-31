@@ -2,9 +2,8 @@ package ru.spitchenko.githubapp.feature.github.search.data
 
 import ru.spitchenko.githubapp.feature.github.data.RepositoryEntity
 import ru.spitchenko.githubapp.feature.github.domain.model.Repository
-import javax.inject.Inject
 
-class RepositoryEntityConverter @Inject constructor() {
+object RepositoryEntityConverter {
 
     fun convert(repository: Repository): RepositoryEntity =
         RepositoryEntity(

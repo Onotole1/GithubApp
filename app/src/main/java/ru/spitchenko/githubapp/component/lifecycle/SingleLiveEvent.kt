@@ -1,9 +1,6 @@
 package ru.spitchenko.githubapp.component.lifecycle
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 
 interface SingleLiveEvent<T> {
 
@@ -15,7 +12,9 @@ interface SingleLiveEventTarget<T> {
     fun sendEvent(event: T)
 }
 
-class MutableSingleLiveEvent<T> : SingleLiveEvent<T>, SingleLiveEventTarget<T>, LifecycleObserver {
+class MutableSingleLiveEvent<T> : SingleLiveEvent<T>,
+    SingleLiveEventTarget<T>,
+    LifecycleEventObserver {
 
     private var observer: ((T) -> Unit)? = null
     private var boundObserver: ((T) -> Unit)? = null
@@ -37,8 +36,16 @@ class MutableSingleLiveEvent<T> : SingleLiveEvent<T>, SingleLiveEventTarget<T>, 
         lifecycleOwner.lifecycle.addObserver(this)
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun connect() {
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when (event) {
+            Lifecycle.Event.ON_START -> connect()
+            Lifecycle.Event.ON_STOP -> disconnect()
+            Lifecycle.Event.ON_DESTROY -> destroy(source)
+            else -> Unit
+        }
+    }
+
+    private fun connect() {
         val observer = observer
         if (observer != null) {
             boundObserver = observer
@@ -51,13 +58,17 @@ class MutableSingleLiveEvent<T> : SingleLiveEvent<T>, SingleLiveEventTarget<T>, 
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun disconnect() {
+    private fun disconnect() {
         boundObserver = null
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun destroy() {
+    fun destroy(lifecycleOwner: LifecycleOwner) {
         observer = null
+        lifecycleOwner.lifecycle.removeObserver(this)
     }
+}
+
+fun SingleLiveEventTarget<Unit>.call() {
+    sendEvent(Unit)
 }
